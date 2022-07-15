@@ -2,32 +2,39 @@
 title: "Nobel winners"
 author: "Matthew Espinosa"
 output: github_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r load-packages, message=FALSE}
 library(tidyverse)
+library(dplyr)
 ```
 
 Let's first load the data:
 
 ```{r label-me1, eval=FALSE}
-nobel <- ___(___)
+nobel <- read.csv("data-raw/nobel.csv")
 ```
 
 Then let's split the data into two:
 
 ```{r label-me2, eval=FALSE}
 # stem laureates
-___ <- nobel %>%
-  filter(___)
+nobel_stem <- nobel %>%
+  filter(category %in% c("Physics", "Medicine", "Chemistry", "Economics"))
 
 # non-steam laureates
-___ <- nobel %>%
-  filter(___)
+nobel_nonstem <- nobel %>%
+  filter(!(category %in% c("Physics", "Medicine", "Chemistry", "Economics")))
 ```
 
 And finally write out the data:
 
 ```{r label-me3}
 # add code for writing out the two data frames here
+write_csv(nobel_stem, file = "data/nobel_stem.csv")
+
+#non_stem
+write_csv(nobel_nonstem, file = "data/nobel_nonstem.csv")
 ```
